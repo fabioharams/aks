@@ -56,7 +56,7 @@ This command will create a Resource Group with the name HararRG10 on WestUS2 (th
 3) Create the AKS Service
 
 ```
-az aks create -g HaraRG10 -n hararg10
+az aks create -g HaraRG10 -n hararg10 --generate-ssh-keys
 ```
 
 You will create the AKS service using the Resource Group HararRG10 with the name hararg10
