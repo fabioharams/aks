@@ -2,6 +2,9 @@
 
 This guide will demonstrate how to test Azure Container Service - Kubernetes as a Managed Service (AKS). 
 
+AKS offer a nice feature to manage Kubernetes cluster without complexity. One important feature that differs from ACS (using Kubernetes) and AKS is about the absence of the Master node as a management endpoint for the Kubernetes cluster. The role for the Master Node is responsibility of Azure and simplifies the management. If you are new in kubernetes we recommend this solution to be evaluated.
+
+
 Before you follow the procedures it's very important to understand all the options to use Containers on Azure. 
 
 ## Understand each choice ##
