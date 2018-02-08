@@ -39,7 +39,7 @@ Microsoft Azure offers 2 solutions:
 - Azure Container service (AKS) Managed Kubernetes: you can run your containers on Azure and manage using Azure CLI and Kubectl (with the most part of the benefits from Kubernetes)
 
 
-## Start using AKS ##
+## Option 1 | Start using AKS via Azure Portal ##
 
 1) Open the Azure Portal using the browser. Open the Cloud Shell and select BASH
 
@@ -140,6 +140,146 @@ kubectl get node
 ```
 
 
+## Option 2| Start using AKS via BASH on Windows 10 ##
+
+Thgis procedure is recommended for anyone that want to use the Linux Subsystem on Windows 10. First you need to install Linux Subsystem and select the prefered Shell (Ubuntu, SLES or OpenSUSE)
+
+Procedures here: https://docs.microsoft.com/en-us/windows/wsl/install-win10
+
+1) Open the selected BASH (in this case using OpenSUSE) 
+
+
+2) Create a Resource Group
+
+```
+az group create -l westus2 -n HaraRG10
+``` 
+
+This command will create a Resource Group with the name HararRG10 on WestUS2 (this region is currently supporting AKS)
+
+3) Create the AKS Service
+
+```
+az aks create -g HaraRG10 -n hararg10 --generate-ssh-keys
+```
+
+You will create the AKS service using the Resource Group HararRG10 with the name hararg10
+
+4) Install the KubeCTL command to manage Kubernetes. You have 2 options here:
+
+- using Azure CLI
+
+```
+az acs kubernetes install-cli
+```
+
+- using Google SDK
+
+
+4a) Download de Google SDK
+
+```
+curl https://sdk.cloud.google.com | bash
+```
+
+4b) Restart the shell
+
+```
+exec -l $SHELL
+```
+
+
+4c) Initialize
+
+```
+gcloud init
+```
+
+4d) After that you can install KUBECTL
+
+```
+gcloud components install kubectl
+```
+
+
+4) Copy the credentials
+
+```
+az aks get-credentials -g HaraRG10 -n hararg10
+```
+
+This step will copy the required credentials to manage correctly
+
+
+5) Check the installation
+
+```
+kubectl cluster-info
+```
+```
+kubectl get node
+```
+
+6) Create a deployment using NGINX to test
+
+```
+kubectl run my-nginx --image=nginx --replicas=2 --port=80
+```
+
+A deployment called my-nginx will be created using 2 replicas with port 80
+
+7) Check the creation of the deployment
+
+```
+kubectl get pod
+```
+```
+kubectl get deployment
+```
+
+8) expose the service to test the internet access
+
+```
+kubectl expose deployment my-nginx --port=80 --type=LoadBalancer
+```
+
+9) Check the external IP address to access via browser
+
+```
+kubectl get services
+```
+
+This could take some seconds to expose this IP Address
+
+10) Open the browser and insert the external IP address. You will see something like this:
+
+
+11) Scale the deployment to 10 pods
+
+```
+kubectl scale deployment my-nginx --replicas=10
+```
+
+12) Check the scale
+
+```
+kubectl get pods
+```
+```
+kubectl get deployment
+```
+
+12) Scale the number of nodes to 10
+
+```
+az aks scale -g hararg11 -n hararg11 -c 10
+```
+
+13) Check the number of nodes
+
+```
+kubectl get node
+```
 
 More information about this resource is here:
 
