@@ -295,7 +295,7 @@ https://azure.microsoft.com/en-us/blog/introducing-azure-container-service-aks-m
 
 You can use [Weave](https://www.weave.works/) to display information about Pods, Deployments, Nodes, etc. 
 
-1) Execute de following command to deploy Weave
+1) Execute the following command to deploy Weave
 ```
 kubectl apply -f "https://cloud.weave.works/k8s/scope.yaml?k8s-version=$(kubectl version | base64 | tr -d '\n')"
 ```
